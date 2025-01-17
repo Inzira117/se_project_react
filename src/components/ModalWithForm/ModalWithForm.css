@@ -1,0 +1,125 @@
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: #0000004d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+}
+
+.modal__opened {
+  visibility: visible;
+}
+
+.modal__title {
+  margin: 0;
+  font-family: Cabinet Grotesk;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+}
+
+.modal__close {
+  position: absolute;
+  top: 20px;
+  right: 28px;
+  width: 20px;
+  height: 20px;
+  border: none;
+  color: #0000004d;
+  padding: 0;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.modal__content {
+  position: relative;
+  background-color: #fff;
+  padding: 28px 28px 36px;
+  max-width: 496px;
+  box-sizing: border-box;
+  width: 100%;
+  border-radius: 20px;
+  object-fit: cover;
+}
+
+.modal__form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.modal__label {
+  height: 52px;
+  margin-top: 20px;
+  font-family: Cabinet Grotesk;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+}
+
+.modal__input {
+  display: block;
+  width: 100%;
+  border: none;
+  margin-top: 10px;
+  border-bottom: 1px solid #000;
+  font-family: Cabinet Grotesk;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+}
+
+.modal__radio-buttons {
+  border: none;
+  padding: 0;
+  margin: 20px 0 20px;
+}
+
+.modal__legend {
+  margin: 0;
+  font-family: Cabinet Grotesk;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+}
+
+.modal__input_type_radio {
+  border: none;
+  font-family: Cabinet Grotesk;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+}
+
+.modal__radio-input {
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.modal__radio-input:checked {
+  accent-color: #000;
+}
+
+.modal__submit {
+  padding: 0;
+  width: 124px;
+  height: 36px;
+  font-family: Cabinet Grotesk;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  color: #fff;
+  border: none;
+  background: #0000004d;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.modal__submit:hover {
+  background: #00000099;
+}

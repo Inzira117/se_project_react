@@ -1,0 +1,33 @@
+.modal__content_type_image {
+  padding: 0;
+}
+
+.modal__image {
+  width: 100%;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+}
+
+.modal__close {
+  color: #fff;
+}
+
+.modal__footer {
+  padding: 20px 28px;
+}
+
+.modal__caption {
+  margin: 0;
+  font-family: Cabinet Grotesk;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 20px;
+}
+
+.modal__weather {
+  margin-top: 20px;
+  font-family: Cabinet Grotesk;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 20px;
+}
