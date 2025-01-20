@@ -52,6 +52,7 @@ function App() {
         buttonText="Add garment"
         activeModal={activeModal}
         closeActiveModal={closeActiveModal}
+        isOpen={activeModal === "add-garment"}
       >
         <label htmlFor="Name" className="modal__label">
           Name{" "}
@@ -74,21 +75,36 @@ function App() {
         <fieldset className="modal__radio-buttons">
           <legend className="modal__legend">Select the weather type:</legend>
           <label htmlFor="hot" className="modal__input modal__input_type_radio">
-            <input type="radio" className="modal__radio-input" id="hot" />
+            <input
+              type="radio"
+              className="modal__radio-input"
+              id="hot"
+              name="weather"
+            />
             Hot
           </label>
           <label
             htmlFor="warm"
             className="modal__input modal__input_type_radio"
           >
-            <input type="radio" className="modal__radio-input" id="warm" />
+            <input
+              type="radio"
+              className="modal__radio-input"
+              id="warm"
+              name="weather"
+            />
             Warm
           </label>
           <label
             htmlFor="cold"
             className="modal__input modal__input_type_radio"
           >
-            <input type="radio" className="modal__radio-input" id="cold" />
+            <input
+              type="radio"
+              className="modal__radio-input"
+              id="cold"
+              name="weather"
+            />
             Cold
           </label>
         </fieldset>
@@ -97,6 +113,7 @@ function App() {
         activeModal={activeModal}
         card={selectedCard}
         closeActiveModal={closeActiveModal}
+        isOpen={activeModal === "preview"}
       />
     </div>
   );
