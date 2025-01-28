@@ -17,3 +17,11 @@
   margin: 0;
   padding: 0;
 }
+
+@media screen and (max-width: 480px) {
+  .cards__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 162px);
+    row-gap: 10px;
+  }
+}

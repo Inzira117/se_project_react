@@ -17,7 +17,7 @@
 }
 
 .header__add-clothes-btn {
-  margin: 0 20px 0 auto;
+  margin: 0 20px;
   border: none;
   font-family: Cabinet Grotesk;
   font-size: 20px;
@@ -39,4 +39,14 @@
   font-size: 20px;
   font-weight: 700;
   line-height: 24.8px;
+}
+
+@media screen and (max-width: 480px) {
+  .header {
+    display: flex;
+  }
+
+  .header__date-location {
+    font-size: 16px;
+  }
 }
