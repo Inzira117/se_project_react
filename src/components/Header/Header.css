@@ -41,6 +41,11 @@
   line-height: 24.8px;
 }
 
+.header__link {
+  text-decoration: none;
+  color: black;
+}
+
 @media screen and (max-width: 480px) {
   .header {
     display: flex;

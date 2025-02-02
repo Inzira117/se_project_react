@@ -1,7 +1,7 @@
 import "./ItemModal.css";
 import CloseMod from "../../assets/CloseMod.svg";
 
-function ItemModal({ card, closeActiveModal, isOpen }) {
+function ItemModal({ card, closeActiveModal, isOpen, handleDelete }) {
   return (
     <div className={`modal ${isOpen ? "modal_opened" : ""}`}>
       <div className="modal__content modal__content_type_image">
@@ -14,8 +14,17 @@ function ItemModal({ card, closeActiveModal, isOpen }) {
         </button>
         <img src={card.link} alt="card image" className="modal__image" />
         <div className="modal__footer">
-          <h2 className="modal__caption">{card.name}</h2>
-          <p className="modal__weather">Weather: {card.weather}</p>
+          <div className="modal__text">
+            <h2 className="modal__caption">{card.name}</h2>
+            <p className="modal__weather">Weather: {card.weather}</p>
+          </div>
+          <button
+            type="button"
+            className="modal__delete"
+            handleDelete={handleDelete}
+          >
+            Delete item
+          </button>
         </div>
       </div>
     </div>

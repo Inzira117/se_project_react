@@ -1,0 +1,32 @@
+.clothes-section__title {
+  display: flex;
+}
+
+.clothes-section__item {
+  font-family: Cabinet Grotesk;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24.8px;
+  text-align: left;
+}
+
+.clothes-section__btn {
+  border: none;
+  font-family: Cabinet Grotesk;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+  cursor: pointer;
+  background-color: transparent;
+  color: #00000099;
+  margin-left: 20px;
+}
+
+.clothes-section__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}

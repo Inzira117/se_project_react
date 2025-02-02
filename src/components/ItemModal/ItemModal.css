@@ -2,6 +2,10 @@
   padding: 0;
 }
 
+div.modal__content_type_image {
+  padding: 0;
+}
+
 .modal__image {
   width: 100%;
   border-top-left-radius: 16px;
@@ -14,6 +18,8 @@
 
 .modal__footer {
   padding: 20px 28px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .modal__caption {
@@ -30,4 +36,20 @@
   font-size: 20px;
   font-weight: 700;
   line-height: 20px;
+}
+
+.modal__delete {
+  cursor: pointer;
+  color: #ff4d00;
+  border: none;
+  background-color: transparent;
+  font-family: Cabinet Grotesk;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+  margin-bottom: auto;
+}
+
+.modal__delete:hover {
+  color: red;
 }
