@@ -6,12 +6,13 @@ import ItemModal from "../ItemModal/ItemModal";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext.jsx";
 import Profile from "../Profile/Profile.jsx";
 import AddItemModal from "../AddItemModal/AddItemModal.jsx";
+import DeleteConfirmationModal from "../DeleteConfirmationModal/DeleteConfirmationModal.jsx";
 import { getWeather, filterWeatherData } from "../../utils/weatherApi.js";
 import { defaultClothingItems } from "../../utils/constants";
-import { getItems } from "../../utuls/api.js";
 import { Routes, Route } from "react-router-dom";
 import { coordinates, APIkey } from "../../utils/constants";
 import { useEffect, useState } from "react";
+import { getItems, addItem, deleteItem } from "../../utils/api.js";
 
 function App() {
   const [weatherData, setWeatherData] = useState({
@@ -26,6 +27,7 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({});
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
   const [clothingItems, setClothingItems] = useState(defaultClothingItems);
+  const [cardToDelete, setCardToDelete] = useState({});
 
   const handleToggleSwitchChange = () => {
     setCurrentTemperatureUnit(currentTemperatureUnit === "F" ? "C" : "F");
@@ -44,13 +46,17 @@ function App() {
     setActiveModal("");
   };
 
-  const handleDelete = (selectedCard) => {
-    deleteCard(selectedCard._id)
-      .then(() => {
-        setClothingItems((cards) =>
-          cards.filter((card) => card._id !== selectedCard._id)
-        );
+  const openConfirmationModal = (card) => {
+    setActiveModal("confirm");
+    setCardToDelete(card);
+  };
 
+  const handleDeleteCard = (card) => {
+    deleteItem(card._id)
+      .then(() => {
+        setClothingItems((prevItems) =>
+          prevItems.filter((item) => item._id !== card._id)
+        );
         closeActiveModal();
       })
       .catch(console.error);
@@ -77,9 +83,13 @@ function App() {
   useEffect(() => {
     getItems()
       .then((data) => {
-        setClothingItems(clothingItems);
+        console.log(data);
+        setClothingItems(data);
       })
-      .catch(console.error);
+      .catch((error) => {
+        console.error("Failed to fetch clothing items:", error);
+        setClothingItems([]);
+      });
   }, []);
 
   return (
@@ -104,8 +114,10 @@ function App() {
               path="/profile"
               element={
                 <Profile
+                  clothingItems={clothingItems}
                   onCardClick={handleCardClick}
                   handleAddClick={handleAddClick}
+                  closeActiveModal={closeActiveModal}
                 />
               }
             />
@@ -123,7 +135,13 @@ function App() {
           card={selectedCard}
           closeActiveModal={closeActiveModal}
           isOpen={activeModal === "preview"}
-          onClick={handleDelete}
+          openConfirmationModal={openConfirmationModal}
+        />
+        <DeleteConfirmationModal
+          card={cardToDelete}
+          isOpen={activeModal === "confirm"}
+          closeActiveModal={closeActiveModal}
+          handleDeleteCard={handleDeleteCard}
         />
       </div>
     </CurrentTemperatureUnitContext.Provider>
