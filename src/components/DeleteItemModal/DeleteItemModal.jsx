@@ -1,7 +1,7 @@
 import "./DeleteItemModal.jsx";
 import { CloseMod } from "../../assets/CloseMod.svg";
 
-export default function DeleteItemModal(closeActiveModal, handleDelete) {
+export default function DeleteItemModal(closeActiveModal, handleDeleteClick) {
   return (
     <div className="modal__delete">
       <button className="modal__close" type="button" onClick={closeActiveModal}>
@@ -15,7 +15,7 @@ export default function DeleteItemModal(closeActiveModal, handleDelete) {
         <button
           type="button"
           className="delete-confirmation"
-          handleDelete={handleDelete}
+          onClick={handleDeleteClick}
         >
           Yes, delete item
         </button>

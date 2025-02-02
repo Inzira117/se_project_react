@@ -2,6 +2,9 @@ import "./ItemModal.css";
 import CloseMod from "../../assets/CloseMod.svg";
 
 function ItemModal({ card, closeActiveModal, isOpen, handleDelete }) {
+  const handleDeleteClick = () => {
+    handleDelete(card);
+  };
   return (
     <div className={`modal ${isOpen ? "modal_opened" : ""}`}>
       <div className="modal__content modal__content_type_image">
@@ -21,7 +24,7 @@ function ItemModal({ card, closeActiveModal, isOpen, handleDelete }) {
           <button
             type="button"
             className="modal__delete"
-            handleDelete={handleDelete}
+            onClick={handleDeleteClick}
           >
             Delete item
           </button>
