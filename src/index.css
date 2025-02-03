@@ -1,1 +1,9 @@
 @import url(./vendor/normalize.css);
+
+@font-face {
+  font-family: CabinetGrotesk;
+  src: url("./vendor/Fonts/CabinetGrotesk-Bold.otf");
+  font-weight: 900;
+  src: url("./vendor/Fonts/CabinetGrotesk-Medium.otf");
+  font-weight: 700;
+}

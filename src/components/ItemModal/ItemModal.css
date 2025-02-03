@@ -1,3 +1,8 @@
+@font-face {
+  font-family: CabinetGrotesk;
+  src: url("./vendor/Fonts/CabinetGrotesk-Medium.otf");
+}
+
 .modal__content_type_image {
   padding: 0;
 }

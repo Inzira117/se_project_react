@@ -51,8 +51,8 @@ function App() {
     setCardToDelete(card);
   };
 
-  const handleDeleteCard = (card) => {
-    return deleteItem(cardToDelete.id).then(() => {
+  const handleDeleteCard = (cardToDelete) => {
+    return deleteItem(cardToDelete._id).then(() => {
       setClothingItems((cards) =>
         cards.filter((item) => item._id !== cardToDelete._id)
       );
@@ -64,7 +64,7 @@ function App() {
   const handleAddItemModalSubmit = ({ name, imageUrl, weather }) => {
     return addItem({ name, imageUrl, weather })
       .then((values) => {
-        setClothingItems([...clothingItems, values]);
+        setClothingItems([values, ...clothingItems]);
         closeActiveModal();
       })
       .catch(console.error);

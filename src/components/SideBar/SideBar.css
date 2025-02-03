@@ -1,3 +1,8 @@
+@font-face {
+  font-family: CabinetGrotesk;
+  src: url("./vendor/Fonts/CabinetGrotesk-Medium.otf");
+}
+
 .sidebar {
   display: flex;
   gap: 16px;
