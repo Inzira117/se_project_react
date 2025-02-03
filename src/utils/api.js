@@ -18,8 +18,8 @@ function addItem({ name, imageUrl, weather }) {
   }).then(checkRes);
 }
 
-function deleteItem(cardId) {
-  return fetch(`${baseUrl}/items/${cardId}`, {
+function deleteItem(cardToDelete.id) {
+  return fetch(`${baseUrl}/items/${cardToDelete.id}`, {
     method: "DELETE",
   }).then(checkRes);
 }

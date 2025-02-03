@@ -52,14 +52,13 @@ function App() {
   };
 
   const handleDeleteCard = (card) => {
-    return deleteItem(selectedCard._id)
-      .then(() => {
-        setClothingItems((prevItems) =>
-          prevItems.filter((item) => item._id !== card._id)
-        );
-        closeActiveModal();
-      })
-      .catch(console.error);
+    return deleteItem(cardToDelete.id).then(() => {
+      setClothingItems((cards) =>
+        cards.filter((item) => item._id !== cardToDelete._id)
+      );
+      setCardToDelete(null);
+      closeActiveModal();
+    });
   };
 
   const handleAddItemModalSubmit = ({ name, imageUrl, weather }) => {
