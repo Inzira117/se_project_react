@@ -23,7 +23,7 @@ function App() {
     condition: "",
   });
 
-  const [activeModal, setActiveModal] = useState();
+  const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
   const [clothingItems, setClothingItems] = useState(defaultClothingItems);
@@ -46,19 +46,36 @@ function App() {
     setActiveModal("");
   };
 
+  useEffect(() => {
+    if (!activeModal) return;
+    const handleEscClose = (e) => {
+      if (e.key === "Escape") {
+        closeActiveModal();
+      }
+    };
+
+    document.addEventListener("keydown", handleEscClose);
+
+    return () => {
+      document.removeEventListener("keydown", handleEscClose);
+    };
+  }, [activeModal]);
+
   const openConfirmationModal = (card) => {
     setActiveModal("confirm");
     setCardToDelete(card);
   };
 
   const handleDeleteCard = (cardToDelete) => {
-    return deleteItem(cardToDelete._id).then(() => {
-      setClothingItems((cards) =>
-        cards.filter((item) => item._id !== cardToDelete._id)
-      );
-      setCardToDelete(null);
-      closeActiveModal();
-    });
+    return deleteItem(cardToDelete._id)
+      .then(() => {
+        setClothingItems((cards) =>
+          cards.filter((item) => item._id !== cardToDelete._id)
+        );
+        setCardToDelete({});
+        closeActiveModal();
+      })
+      .catch(console.error);
   };
 
   const handleAddItemModalSubmit = ({ name, imageUrl, weather }) => {

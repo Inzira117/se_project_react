@@ -125,6 +125,18 @@
       "imageUrl": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Coat.png?etag=298717ed89d5e40b1954a1831ae0bdd4",
       "weather": "warm",
       "_id": 29
+    },
+    {
+      "name": "Cap",
+      "imageUrl": "link: \"https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Cap.png?etag=f3dad389b22909cafa73cff9f9a3d591\",",
+      "weather": "warm",
+      "_id": 30
+    },
+    {
+      "name": "coat",
+      "imageUrl": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Loafers.png?etag=dc2d6e1ca7b297597406e35c40aef030",
+      "weather": "warm",
+      "_id": 31
     }
   ]
 }
