@@ -5,8 +5,14 @@
 
 .sidebar {
   display: flex;
+  flex-direction: column;
   gap: 16px;
   width: 229px;
+}
+
+.sidebar__profile {
+  display: flex;
+  gap: 16px;
 }
 
 .sidebar__avatar {
@@ -20,4 +26,32 @@
   font-weight: 700;
   line-height: 24.8px;
   text-align: left;
+}
+
+.sidebar__buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.chande__profile {
+  border: none;
+  font-family: Cabinet Grotesk;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24.8px;
+  text-align: left;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.logout {
+  border: none;
+  font-family: Cabinet Grotesk;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24.8px;
+  text-align: left;
+  cursor: pointer;
+  background-color: transparent;
 }

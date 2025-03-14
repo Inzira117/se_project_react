@@ -1,5 +1,4 @@
 import "./ClothesSection.css";
-import { defaultClothingItems } from "../../utils/constants";
 import ItemCard from "../ItemCard/ItemCard";
 
 function ClothesSection({
@@ -8,6 +7,8 @@ function ClothesSection({
   handleDeleteCard,
   clothingItems,
 }) {
+  const profileCards = clothingItems;
+
   return (
     <div className="clothes-section">
       <div className="clothes-section__title">
@@ -21,7 +22,7 @@ function ClothesSection({
         </button>
       </div>
       <ul className="clothes-section__list">
-        {clothingItems.map((item) => {
+        {profileCards.map((item) => {
           return (
             <ItemCard
               key={item._id}

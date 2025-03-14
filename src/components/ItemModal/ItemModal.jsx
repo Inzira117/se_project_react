@@ -1,7 +1,23 @@
+import { useContext } from "react";
 import "./ItemModal.css";
+import CurrentUserContext from "../../contexts/CurrentUserContext.jsx";
 import CloseMod from "../../assets/CloseMod.svg";
 
 function ItemModal({ card, closeActiveModal, isOpen, openConfirmationModal }) {
+  const currentUser = useContext(CurrentUserContext);
+
+  if (!card || isOpen !== "preview") {
+    return null;
+  }
+
+  // Check if the current user owns the item
+  const isOwn =
+    currentUser && card && card.owner && currentUser._id === card.owner;
+
+  const itemDeleteModal = `modal__delete-button ${
+    isOwn ? "" : "modal__delete-button_hidden"
+  }`;
+
   return (
     <div className={`modal ${isOpen ? "modal_opened" : ""}`}>
       <div className="modal__content modal__content_type_image">
@@ -22,13 +38,15 @@ function ItemModal({ card, closeActiveModal, isOpen, openConfirmationModal }) {
             <h2 className="modal__caption">{card.name}</h2>
             <p className="modal__weather">Weather: {card.weather}</p>
           </div>
-          <button
-            type="button"
-            className="modal__delete"
-            onClick={() => openConfirmationModal(card)}
-          >
-            Delete item
-          </button>
+          {isOwn && (
+            <button
+              type="button"
+              className={itemDeleteModal}
+              onClick={() => openConfirmationModal(card)}
+            >
+              Delete item
+            </button>
+          )}
         </div>
       </div>
     </div>
