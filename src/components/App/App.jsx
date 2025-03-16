@@ -11,13 +11,14 @@ import RegisterModal from "../RegisterModal/RegisterModal.jsx";
 import LoginModal from "../LoginModal/LoginModal.jsx";
 import Auth from "../../utils/auth.js";
 import CurrentUserContext from "../../contexts/CurrentUserContext.jsx";
+import ProtectedRoute from "../ProtectedRout/ProtectedRoute.jsx";
+import Api from "../../utils/api.js";
 
 import { getWeather, filterWeatherData } from "../../utils/weatherApi.js";
 import { defaultClothingItems } from "../../utils/constants";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import { coordinates, APIkey } from "../../utils/constants";
 import { useEffect, useState } from "react";
-import { getItems, addItem, deleteItem } from "../../utils/api.js";
 
 const auth = new Auth({
   baseUrl: "http://localhost:3001",
@@ -44,6 +45,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [cardToDelete, setCardToDelete] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleToggleSwitchChange = () => {
     setCurrentTemperatureUnit(currentTemperatureUnit === "F" ? "C" : "F");
@@ -91,7 +93,8 @@ function App() {
   };
 
   const handleDeleteCard = (cardToDelete) => {
-    return deleteItem(cardToDelete._id)
+    return api
+      .deleteItem(cardToDelete._id)
       .then(() => {
         setClothingItems((cards) =>
           cards.filter((item) => item._id !== cardToDelete._id)
@@ -102,13 +105,18 @@ function App() {
       .catch(console.error);
   };
 
-  const handleAddItemModalSubmit = ({ name, imageUrl, weather }) => {
-    return addItem({ name, imageUrl, weather })
-      .then((values) => {
-        setClothingItems([values, ...clothingItems]);
+  const handleAddItemModalSubmit = (item) => {
+    api
+      .addItem(item)
+      .then((res) => {
+        setClothingItems([res.item, ...clothingItems]);
+        console.log(item);
         closeActiveModal();
       })
-      .catch(console.error);
+      .catch(console.error)
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   const handleRegistration = ({ name, avatar, email, password }) => {
@@ -116,13 +124,16 @@ function App() {
       auth
         .registerUser({ name, avatar, email, password })
         .then((res) => {
+          console.log("Registration response:", res);
           return auth.loginUser({ email, password });
         })
-        .then((data) => {
-          if (data.token) {
-            localStorage.setItem("jwt", data.token);
-            return auth.verifyToken(data.token);
+        .then((token) => {
+          console.log("Login response:", token);
+          if (!token) {
+            throw new Error("No token received from login");
           }
+          localStorage.setItem("jwt", token);
+          return auth.verifyToken(token);
         })
         .then((userData) => {
           setCurrentUser(userData);
@@ -141,18 +152,45 @@ function App() {
       auth
         .loginUser({ email, password })
         .then((token) => {
+          if (!token) {
+            throw new Error("No token received from login");
+          }
+          localStorage.setItem("jwt", token);
           return auth.verifyToken(token);
         })
-        .then((currentUser) => {
-          setCurrentUser(currentUser);
-          closeActiveModal();
+        .then((userData) => {
+          setCurrentUser(userData);
           setIsLoggedIn(true);
+          closeActiveModal();
         })
-        .catch((err) => console.error(err))
-        .finally(() => {
-          setIsLoading(false);
-        });
+        .catch((err) => console.log(err));
     }
+  };
+
+  const handleCardLike = ({ id, isLiked }) => {
+    const token = localStorage.getItem("jwt");
+    // Check if this card is not currently liked
+    !isLiked
+      ? // if so, send a request to add the user's id to the card's likes array
+        api
+          // the first argument is the card's id
+          .addCardLike(id, token)
+          .then((updatedCard) => {
+            setClothingItems((cards) =>
+              cards.map((item) => (item._id === id ? updatedCard : item))
+            );
+          })
+          .catch((err) => console.log(err))
+      : // if not, send a request to remove the user's id from the card's likes array
+        api
+          // the first argument is the card's id
+          .removeCardLike(id, token)
+          .then((updatedCard) => {
+            setClothingItems((cards) =>
+              cards.map((item) => (item._id === id ? updatedCard : item))
+            );
+          })
+          .catch((err) => console.log(err));
   };
 
   const handleLogout = () => {
@@ -172,18 +210,6 @@ function App() {
         setWeatherData(filteredData);
       })
       .catch(console.error);
-  }, []);
-
-  useEffect(() => {
-    getItems()
-      .then((data) => {
-        console.log(data);
-        setClothingItems(data);
-      })
-      .catch((error) => {
-        console.error("Failed to fetch clothing items:", error);
-        setClothingItems([]);
-      });
   }, []);
 
   useEffect(() => {
@@ -237,19 +263,22 @@ function App() {
                     weatherData={weatherData}
                     onCardClick={handleCardClick}
                     clothingItems={clothingItems}
+                    onCardLike={handleCardLike}
                   />
                 }
               />
               <Route
                 path="/profile"
                 element={
-                  <Profile
-                    clothingItems={clothingItems}
-                    onCardClick={handleCardClick}
-                    handleAddClick={handleAddClick}
-                    handleLogoutClick={handleLogout}
-                    closeActiveModal={closeActiveModal}
-                  />
+                  <ProtectedRoute isLoggedIn={isLoggedIn}>
+                    <Profile
+                      clothingItems={clothingItems}
+                      onCardClick={handleCardClick}
+                      handleAddClick={handleAddClick}
+                      handleLogoutClick={handleLogout}
+                      closeActiveModal={closeActiveModal}
+                    />
+                  </ProtectedRoute>
                 }
               />
             </Routes>

@@ -9,7 +9,7 @@ export default function RegisterModal({
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
+  const [avatar, setAvatar] = useState("");
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -24,7 +24,7 @@ export default function RegisterModal({
   };
 
   const handleImageUrlChange = (e) => {
-    setImageUrl(e.target.value);
+    setAvatar(e.target.value);
   };
 
   const handleSubmit = (e) => {
@@ -33,7 +33,7 @@ export default function RegisterModal({
       email,
       password,
       name,
-      imageUrl,
+      avatar,
     });
   };
 
@@ -41,6 +41,7 @@ export default function RegisterModal({
     <ModalWithForm
       title="Sign up"
       buttonText="Sign up"
+      secondButtonText="or Log in"
       closeActiveModal={closeActiveModal}
       isOpen={isOpen}
       onSubmit={handleSubmit}
@@ -97,25 +98,8 @@ export default function RegisterModal({
           placeholder="Image URL"
           required
           onChange={handleImageUrlChange}
-          value={imageUrl}
+          value={avatar}
         />
-        <button type="button" className="modal__btn" onClick={handleSubmit}>
-          {" "}
-          or Log In
-        </button>
-        {/* <div className="modal__buttons">
-          <button
-            type="submit"
-            className="modal__submit"
-            onClick={handleSubmit}
-          >
-            Sign Up{" "}
-          </button>
-          <button type="button" className="modal__btn" onClick={handleSubmit}>
-            {" "}
-            or Log In
-          </button>
-        </div> */}
       </label>
     </ModalWithForm>
   );

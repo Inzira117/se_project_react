@@ -2,18 +2,22 @@ class Auth {
   constructor({ baseUrl, headers }) {
     this.baseUrl = baseUrl;
     this.headers = headers;
+    this._checkResponse = this._checkResponse.bind(this);
+    this._addToStorage = this._addToStorage.bind(this);
   }
 
   _checkResponse(res) {
     if (res.ok) {
       return res.json();
     }
-    console.error("Server Error:", {
-      status: res.status,
-      statusText: res.statusText,
-      data: data,
-    });
-    return Promise.reject(`Error ${res.status}`);
+
+    if (res.status === 409) {
+      return Promise.reject(
+        "This email is already registered. Please try logging in or use a different email."
+      );
+    }
+
+    return Promise.reject(`Error ${res.status}: ${res.statusText}`);
   }
 
   _addToStorage(res) {
@@ -50,7 +54,10 @@ class Auth {
       }),
     })
       .then(this._checkResponse)
-      .then(this._addToStorage);
+      .then((data) => {
+        console.log("Login response data:", data); // Add this line
+        return this._addToStorage(data);
+      });
   }
 
   verifyToken(token) {

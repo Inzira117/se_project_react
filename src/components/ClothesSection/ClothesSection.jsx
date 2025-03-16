@@ -6,6 +6,7 @@ function ClothesSection({
   handleAddClick,
   handleDeleteCard,
   clothingItems,
+  handleCardLike,
 }) {
   const profileCards = clothingItems;
 
@@ -29,6 +30,7 @@ function ClothesSection({
               item={item}
               onCardClick={onCardClick}
               handleDeleteCard={handleDeleteCard}
+              onCardLike={handleCardLike}
             />
           );
         })}

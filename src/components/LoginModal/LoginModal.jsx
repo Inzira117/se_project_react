@@ -22,6 +22,8 @@ export default function LoginModal({ closeActiveModal, isOpen, handleLogin }) {
     <ModalWithForm
       title="Login"
       isOpen={isOpen}
+      buttonText="Log in"
+      secondButtonText="or Register"
       closeActiveModal={closeActiveModal}
       onSubmit={handleSubmit}
     >
@@ -48,15 +50,6 @@ export default function LoginModal({ closeActiveModal, isOpen, handleLogin }) {
           onChange={handlePasswordChange}
         />
       </label>
-      <div className="modal__buttons">
-        <button type="submit" className="modal__submit">
-          Log In{" "}
-        </button>
-        <button type="button" className="modal__btn" onClick={handleSubmit}>
-          {" "}
-          or Sign Up
-        </button>
-      </div>
     </ModalWithForm>
   );
 }
