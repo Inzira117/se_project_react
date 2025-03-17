@@ -2,7 +2,7 @@ import "./SideBar.css";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import { useContext } from "react";
 
-function SideBar(handleLogout, handleEditModal) {
+function SideBar({ handleLogout, handleEditModal }) {
   const currentUser = useContext(CurrentUserContext);
 
   const userName = currentUser?.name || "";

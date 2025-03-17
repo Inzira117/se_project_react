@@ -21,8 +21,8 @@ export default function EditProfile({
 
   useEffect(() => {
     if (activeModal === "edit") {
-      setName(currentUser?.name);
-      setImageUrl(currentUser?.imageUrl);
+      setName(currentUser?.name || "");
+      setImageUrl(currentUser?.imageUrl || "");
     }
   }, [activeModal, currentUser]);
 
@@ -37,6 +37,7 @@ export default function EditProfile({
   return (
     <ModalWithForm
       title="Change profile data"
+      buttonText="Save changes"
       closeActiveModal={closeActiveModal}
       isOpen={activeModal === "edit"}
       onSubmit={handleSubmit}

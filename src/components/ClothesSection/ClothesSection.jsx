@@ -31,6 +31,7 @@ function ClothesSection({
               onCardClick={onCardClick}
               handleDeleteCard={handleDeleteCard}
               onCardLike={handleCardLike}
+              handleCardLike={handleCardLike}
             />
           );
         })}

@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import "./ItemModal.css";
 import CurrentUserContext from "../../contexts/CurrentUserContext.jsx";
-import CloseMod from "../../assets/CloseMod.svg";
 
 function ItemModal({ card, closeActiveModal, isOpen, openConfirmationModal }) {
   const currentUser = useContext(CurrentUserContext);
@@ -26,17 +25,19 @@ function ItemModal({ card, closeActiveModal, isOpen, openConfirmationModal }) {
           type="button"
           onClick={closeActiveModal}
         >
-          <img src={CloseMod} alt="close button" />
+          <img src={closeActiveModal} alt="close button" />
         </button>
         <img
-          src={card.imageUrl || card.link}
-          alt="card image"
+          src={selectedCard.imageUrl || ""}
+          alt={selectedCard.name || ""}
           className="modal__image"
         />
         <div className="modal__footer">
           <div className="modal__text">
-            <h2 className="modal__caption">{card.name}</h2>
-            <p className="modal__weather">Weather: {card.weather}</p>
+            <h2 className="modal__caption">{selectedCard.name || ""}</h2>
+            <p className="modal__weather">
+              Weather: {selectedCard.weather || ""}
+            </p>
           </div>
           {isOwn && (
             <button

@@ -48,7 +48,7 @@
 .notliked_button {
   position: static;
   background: none;
-  background-image: url(../../../assets/notlikedbutton.png);
+  background-image: url(../../assets/NotLikeB.svg);
   border: none;
   width: 22px;
   height: 20px;
@@ -59,7 +59,7 @@
 }
 
 .like_button {
-  background-image: url(../../../assets/likebutton.png);
+  background-image: url(../../assets/LikeButton.svg);
   position: static;
   border: none;
   width: 22px;

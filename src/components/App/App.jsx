@@ -288,8 +288,8 @@ function App() {
                     weatherData={weatherData}
                     onCardClick={handleCardClick}
                     clothingItems={clothingItems}
-                    onCardLike={handleCardLike}
                     isLoggedIn={isLoggedIn}
+                    handleCardLike={handleCardLike}
                   />
                 }
               />
