@@ -17,7 +17,7 @@ class Api {
     }).then(this._checkRes);
   }
 
-  addItem({ name, link, weather }) {
+  addItem(name, link, weather) {
     const token = localStorage.getItem("jwt");
     return fetch(this.baseUrl + "/items/", {
       method: "POST",

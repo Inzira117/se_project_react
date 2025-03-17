@@ -5,7 +5,7 @@ import CurrentUserContext from "../../contexts/CurrentUserContext";
 export default function EditProfile({
   closeActiveModal,
   activeModal,
-  onEditProfileSubmit,
+  handleEdit,
 }) {
   const [name, setName] = useState("");
   const [imageUrl, setImageUrl] = useState("");
@@ -28,7 +28,7 @@ export default function EditProfile({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onEditProfileSubmit({ name, imageUrl }).then(() => {
+    handleEdit({ name, imageUrl }).then(() => {
       setName("");
       setImageUrl("");
     });

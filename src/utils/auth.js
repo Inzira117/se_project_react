@@ -3,7 +3,6 @@ class Auth {
     this.baseUrl = baseUrl;
     this.headers = headers;
     this._checkResponse = this._checkResponse.bind(this);
-    this._addToStorage = this._addToStorage.bind(this);
   }
 
   _checkResponse(res) {
@@ -18,11 +17,6 @@ class Auth {
     }
 
     return Promise.reject(`Error ${res.status}: ${res.statusText}`);
-  }
-
-  _addToStorage(res) {
-    localStorage.setItem("jwt", res.token);
-    return res.token;
   }
 
   registerUser({ name, avatar, email, password }) {
@@ -52,12 +46,7 @@ class Auth {
         email,
         password,
       }),
-    })
-      .then(this._checkResponse)
-      .then((data) => {
-        console.log("Login response data:", data); // Add this line
-        return this._addToStorage(data);
-      });
+    }).then(this._checkResponse);
   }
 
   verifyToken(token) {

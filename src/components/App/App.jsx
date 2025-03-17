@@ -9,6 +9,7 @@ import AddItemModal from "../AddItemModal/AddItemModal.jsx";
 import DeleteConfirmationModal from "../DeleteConfirmationModal/DeleteConfirmationModal.jsx";
 import RegisterModal from "../RegisterModal/RegisterModal.jsx";
 import LoginModal from "../LoginModal/LoginModal.jsx";
+import EditProfileModal from "../EditProfileModal/EditProfileModal.jsx";
 import Auth from "../../utils/auth.js";
 import CurrentUserContext from "../../contexts/CurrentUserContext.jsx";
 import ProtectedRoute from "../ProtectedRout/ProtectedRoute.jsx";
@@ -19,6 +20,13 @@ import { defaultClothingItems } from "../../utils/constants";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import { coordinates, APIkey } from "../../utils/constants";
 import { useEffect, useState } from "react";
+
+const api = new Api({
+  baseUrl: "http://localhost:3001",
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
 
 const auth = new Auth({
   baseUrl: "http://localhost:3001",
@@ -63,6 +71,10 @@ function App() {
     setActiveModal("login");
   };
 
+  const handleEditModal = () => {
+    setActiveModal("edit");
+  };
+
   const handleCardClick = (card) => {
     setActiveModal("preview");
     setSelectedCard(card);
@@ -105,12 +117,12 @@ function App() {
       .catch(console.error);
   };
 
-  const handleAddItemModalSubmit = (item) => {
+  const handleAddItemModalSubmit = (name, imageUrl, weather) => {
     api
-      .addItem(item)
+      .addItem(name, imageUrl, weather)
       .then((res) => {
-        setClothingItems([res.item, ...clothingItems]);
-        console.log(item);
+        setClothingItems([res, ...clothingItems]);
+        console.log(res);
         closeActiveModal();
       })
       .catch(console.error)
@@ -129,11 +141,8 @@ function App() {
         })
         .then((token) => {
           console.log("Login response:", token);
-          if (!token) {
-            throw new Error("No token received from login");
-          }
-          localStorage.setItem("jwt", token);
-          return auth.verifyToken(token);
+          localStorage.setItem("jwt", token.jwt);
+          return auth.verifyToken(token.jwt);
         })
         .then((userData) => {
           setCurrentUser(userData);
@@ -164,6 +173,22 @@ function App() {
           closeActiveModal();
         })
         .catch((err) => console.log(err));
+    }
+  };
+
+  const handleEdit = ({ name, avatar }) => {
+    const token = localStorage.getItem("jwt");
+    if (name && avatar) {
+      api
+        .editUser(token, name, avatar)
+        .then((res) => {
+          closeActiveModal();
+          setCurrentUser(res);
+        })
+        .catch((err) => console.error(err))
+        .finally(() => {
+          setIsLoading(false);
+        });
     }
   };
 
@@ -264,6 +289,7 @@ function App() {
                     onCardClick={handleCardClick}
                     clothingItems={clothingItems}
                     onCardLike={handleCardLike}
+                    isLoggedIn={isLoggedIn}
                   />
                 }
               />
@@ -275,8 +301,10 @@ function App() {
                       clothingItems={clothingItems}
                       onCardClick={handleCardClick}
                       handleAddClick={handleAddClick}
-                      handleLogoutClick={handleLogout}
+                      handleLogout={handleLogout}
+                      handleEditModal={handleEditModal}
                       closeActiveModal={closeActiveModal}
+                      handleCardLike={handleCardLike}
                     />
                   </ProtectedRoute>
                 }
@@ -313,6 +341,14 @@ function App() {
               isOpen={activeModal === "login"}
               closeActiveModal={closeActiveModal}
               handleLogin={handleLogin}
+            />
+            <EditProfileModal
+              activeModal={activeModal}
+              closeActiveModal={closeActiveModal}
+              isOpen={activeModal === "edit"}
+              handleEditModal={handleEditModal}
+              handleEdit={handleEdit}
+              isLoading={isLoading}
             />
             <Footer />
           </CurrentTemperatureUnitContext.Provider>

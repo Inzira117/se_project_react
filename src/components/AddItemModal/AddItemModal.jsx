@@ -24,11 +24,12 @@ export default function AddItemModal({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onAddItemModalSubmit({ name, imageUrl, weather }).then(() => {
-      setName("");
-      setImageUrl("");
-      setWeather("");
-    });
+    console.log(name, imageUrl, weather);
+    onAddItemModalSubmit(name, imageUrl, weather);
+
+    setName("");
+    setImageUrl("");
+    setWeather("");
   };
 
   return (

@@ -19,7 +19,7 @@ function Header({
   });
 
   const userName = currentUser?.name || "";
-  const userAvatar = currentUser?.imageUrl || "";
+  const userAvatar = currentUser?.avatar || "";
 
   return (
     <header className="header">
