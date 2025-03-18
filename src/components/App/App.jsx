@@ -164,8 +164,8 @@ function App() {
           if (!token) {
             throw new Error("No token received from login");
           }
-          localStorage.setItem("jwt", token);
-          return auth.verifyToken(token);
+          localStorage.setItem("jwt", token.jwt);
+          return auth.verifyToken(token.jwt);
         })
         .then((userData) => {
           setCurrentUser(userData);

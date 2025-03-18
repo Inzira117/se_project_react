@@ -8,6 +8,7 @@ function Profile({
   handleAddClick,
   handleLogout,
   handleEditModal,
+  handleCardLike,
 }) {
   return (
     <div className="profile">
