@@ -8,30 +8,27 @@ export default function EditProfile({
   handleEdit,
 }) {
   const [name, setName] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
+  const [avatar, setAvatar] = useState("");
   const currentUser = useContext(CurrentUserContext);
 
   const handleNameChange = (e) => {
     setName(e.target.value);
   };
 
-  const handleImageUrlChange = (e) => {
-    setImageUrl(e.target.value);
+  const handleAvatarChange = (e) => {
+    setAvatar(e.target.value);
   };
 
   useEffect(() => {
     if (activeModal === "edit") {
       setName(currentUser?.name || "");
-      setImageUrl(currentUser?.imageUrl || "");
+      setAvatar(currentUser?.avatar || "");
     }
   }, [activeModal, currentUser]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleEdit({ name, imageUrl }).then(() => {
-      setName("");
-      setImageUrl("");
-    });
+    handleEdit({ name, avatar });
   };
 
   return (
@@ -65,8 +62,8 @@ export default function EditProfile({
           type="url"
           placeholder="Image URL"
           required
-          onChange={handleImageUrlChange}
-          value={imageUrl}
+          onChange={handleAvatarChange}
+          value={avatar}
         />
       </label>
     </ModalWithForm>

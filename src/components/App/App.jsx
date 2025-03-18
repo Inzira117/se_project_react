@@ -16,7 +16,6 @@ import ProtectedRoute from "../ProtectedRout/ProtectedRoute.jsx";
 import Api from "../../utils/api.js";
 
 import { getWeather, filterWeatherData } from "../../utils/weatherApi.js";
-import { defaultClothingItems } from "../../utils/constants";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import { coordinates, APIkey } from "../../utils/constants";
 import { useEffect, useState } from "react";
@@ -49,7 +48,7 @@ function App() {
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
-  const [clothingItems, setClothingItems] = useState(defaultClothingItems);
+  const [clothingItems, setClothingItems] = useState([]);
   const [currentUser, setCurrentUser] = useState({});
   const [cardToDelete, setCardToDelete] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -79,7 +78,7 @@ function App() {
     setActiveModal("preview");
     setSelectedCard(card);
   };
-
+  console.log(activeModal, selectedCard);
   const closeActiveModal = () => {
     setActiveModal("");
   };
@@ -192,27 +191,27 @@ function App() {
     }
   };
 
-  const handleCardLike = ({ id, isLiked }) => {
+  const handleCardLike = ({ _id, isLiked }) => {
     const token = localStorage.getItem("jwt");
     // Check if this card is not currently liked
     !isLiked
       ? // if so, send a request to add the user's id to the card's likes array
         api
           // the first argument is the card's id
-          .addCardLike(id, token)
+          .addCardLike(_id, token)
           .then((updatedCard) => {
             setClothingItems((cards) =>
-              cards.map((item) => (item._id === id ? updatedCard : item))
+              cards.map((item) => (item._id === _id ? updatedCard.data : item))
             );
           })
           .catch((err) => console.log(err))
       : // if not, send a request to remove the user's id from the card's likes array
         api
           // the first argument is the card's id
-          .removeCardLike(id, token)
+          .removeCardLike(_id, token)
           .then((updatedCard) => {
             setClothingItems((cards) =>
-              cards.map((item) => (item._id === id ? updatedCard : item))
+              cards.map((item) => (item._id === _id ? updatedCard : item))
             );
           })
           .catch((err) => console.log(err));
@@ -222,7 +221,7 @@ function App() {
     closeActiveModal();
     setIsLoggedIn(false);
     setCurrentUser(null);
-    setClothingItems([]);
+
     setSelectedCard(null);
     localStorage.removeItem("jwt");
     navigate("/");
@@ -238,6 +237,13 @@ function App() {
   }, []);
 
   useEffect(() => {
+    api
+      .getCards()
+      .then((items) => {
+        setClothingItems(items);
+      })
+      .catch((err) => console.error(err));
+
     const token = localStorage.getItem("jwt");
     if (token) {
       auth
@@ -245,12 +251,6 @@ function App() {
         .then((user) => {
           setIsLoggedIn(true);
           setCurrentUser(user);
-          api
-            .getCards(token)
-            .then((items) => {
-              setClothingItems(items);
-            })
-            .catch((err) => console.error(err));
         })
         .catch((err) => {
           console.error(err);
@@ -262,7 +262,6 @@ function App() {
     } else {
       setIsLoggedIn(false);
       setCurrentUser({});
-      setClothingItems([]);
     }
   }, []);
 
@@ -317,7 +316,6 @@ function App() {
               onAddItemModalSubmit={handleAddItemModalSubmit}
             />
             <ItemModal
-              activeModal={activeModal}
               card={selectedCard}
               closeActiveModal={closeActiveModal}
               isOpen={activeModal === "preview"}
@@ -346,7 +344,7 @@ function App() {
               activeModal={activeModal}
               closeActiveModal={closeActiveModal}
               isOpen={activeModal === "edit"}
-              handleEditModal={handleEditModal}
+              onCardClick={handleEditModal}
               handleEdit={handleEdit}
               isLoading={isLoading}
             />

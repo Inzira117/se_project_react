@@ -12,13 +12,15 @@ div.modal__content_type_image {
 }
 
 .modal__image {
-  width: 100%;
+  width: 498px;
+  height: 498px;
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;
 }
 
 .modal__close {
   color: #fff;
+  background-image: url(../../assets/CloseMod.svg);
 }
 
 .modal__footer {
@@ -43,7 +45,7 @@ div.modal__content_type_image {
   line-height: 20px;
 }
 
-.modal__delete {
+.modal__delete-button {
   cursor: pointer;
   color: #ff4d00;
   border: none;
@@ -53,6 +55,10 @@ div.modal__content_type_image {
   font-weight: 700;
   line-height: 24px;
   margin-bottom: auto;
+}
+
+.modal__delete-button_hidden {
+  display: none;
 }
 
 .modal__delete:hover {

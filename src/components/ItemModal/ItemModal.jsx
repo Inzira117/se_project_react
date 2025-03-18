@@ -1,19 +1,19 @@
 import { useContext } from "react";
 import "./ItemModal.css";
 import CurrentUserContext from "../../contexts/CurrentUserContext.jsx";
+import CloseMod from "../../assets/CloseMod.svg";
 
 function ItemModal({ card, closeActiveModal, isOpen, openConfirmationModal }) {
   const currentUser = useContext(CurrentUserContext);
-
-  if (!card || isOpen !== "preview") {
+  console.log(isOpen);
+  if (!card || !isOpen) {
     return null;
   }
 
   // Check if the current user owns the item
-  const isOwn =
-    currentUser && card && card.owner && currentUser._id === card.owner;
+  const isOwn = card.owner === currentUser._id;
 
-  const itemDeleteModal = `modal__delete-button ${
+  const itemDeleteButtonClassName = `modal__delete-button ${
     isOwn ? "" : "modal__delete-button_hidden"
   }`;
 
@@ -25,24 +25,22 @@ function ItemModal({ card, closeActiveModal, isOpen, openConfirmationModal }) {
           type="button"
           onClick={closeActiveModal}
         >
-          <img src={closeActiveModal} alt="close button" />
+          <img src={CloseMod} alt="close button" />
         </button>
         <img
-          src={selectedCard.imageUrl || ""}
-          alt={selectedCard.name || ""}
+          src={card.imageUrl || ""}
+          alt={card.name || ""}
           className="modal__image"
         />
         <div className="modal__footer">
           <div className="modal__text">
-            <h2 className="modal__caption">{selectedCard.name || ""}</h2>
-            <p className="modal__weather">
-              Weather: {selectedCard.weather || ""}
-            </p>
+            <h2 className="modal__caption">{card.name || ""}</h2>
+            <p className="modal__weather">Weather: {card.weather || ""}</p>
           </div>
           {isOwn && (
             <button
               type="button"
-              className={itemDeleteModal}
+              className={itemDeleteButtonClassName}
               onClick={() => openConfirmationModal(card)}
             >
               Delete item
