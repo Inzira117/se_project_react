@@ -6,8 +6,6 @@ function ModalWithForm({
   children,
   name,
   title,
-  buttonText,
-  secondButtonText,
   closeActiveModal,
   isOpen,
   onSubmit,
@@ -25,16 +23,6 @@ function ModalWithForm({
         </button>
         <form className="modal__form" onSubmit={onSubmit} name={name}>
           {children}
-          <div className="madal__buttons">
-            <button type="submit" className="modal__submit">
-              {buttonText}
-            </button>
-            {secondButtonText && (
-              <button type="submit" className="modal__btn">
-                {secondButtonText}
-              </button>
-            )}
-          </div>
         </form>
       </div>
     </div>

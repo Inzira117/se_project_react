@@ -10,11 +10,11 @@ function ItemCard({ item, onCardClick, handleCardLike }) {
   };
 
   const isLiked =
-    item.likes && item.likes.some((id) => id === currentUser?._id);
+    item.likes && item.likes.some((_id) => _id === currentUser?._id);
 
   const handleLike = () => {
     console.log("Like clicked, current state:", isLiked);
-    handleCardLike(item, isLiked);
+    handleCardLike({ ...item, isLiked });
   };
 
   return (

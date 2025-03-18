@@ -211,7 +211,7 @@ function App() {
           .removeCardLike(_id, token)
           .then((updatedCard) => {
             setClothingItems((cards) =>
-              cards.map((item) => (item._id === _id ? updatedCard : item))
+              cards.map((item) => (item._id === _id ? updatedCard.data : item))
             );
           })
           .catch((err) => console.log(err));
@@ -289,6 +289,7 @@ function App() {
                     clothingItems={clothingItems}
                     isLoggedIn={isLoggedIn}
                     handleCardLike={handleCardLike}
+                    onClick={handleLoginClick}
                   />
                 }
               />
@@ -328,16 +329,16 @@ function App() {
               handleDeleteCard={handleDeleteCard}
             />
             <RegisterModal
-              onCardClick={handleRegisterClick}
               isOpen={activeModal === "register"}
               closeActiveModal={closeActiveModal}
               handleRegistration={handleRegistration}
               handleLogin={handleLogin}
+              handleLoginClick={handleLoginClick}
             />
             <LoginModal
-              onCardClick={handleLoginClick}
               isOpen={activeModal === "login"}
               closeActiveModal={closeActiveModal}
+              handleRegisterClick={handleRegisterClick}
               handleLogin={handleLogin}
             />
             <EditProfileModal

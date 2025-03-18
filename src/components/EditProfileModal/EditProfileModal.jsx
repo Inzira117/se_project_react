@@ -43,7 +43,6 @@ export default function EditProfile({
         Name{" "}
         <input
           className="modal__input"
-          id="Name"
           type="text"
           placeholder="Name"
           required
@@ -58,7 +57,6 @@ export default function EditProfile({
         Avatar{" "}
         <input
           className="modal__input"
-          id="imageUrl"
           type="url"
           placeholder="Image URL"
           required

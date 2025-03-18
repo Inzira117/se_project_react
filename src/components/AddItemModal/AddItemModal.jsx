@@ -44,7 +44,6 @@ export default function AddItemModal({
         Name{" "}
         <input
           className="modal__input"
-          id="Name"
           type="text"
           placeholder="Name"
           required
@@ -59,7 +58,6 @@ export default function AddItemModal({
         Image{" "}
         <input
           className="modal__input"
-          id="imageUrl"
           type="url"
           placeholder="Image URL"
           required
@@ -109,6 +107,9 @@ export default function AddItemModal({
           Cold
         </label>
       </fieldset>
+      <button type="submit" className="modal__submit">
+        Add garment
+      </button>
     </ModalWithForm>
   );
 }

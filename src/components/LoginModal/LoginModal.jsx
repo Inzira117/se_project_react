@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
-export default function LoginModal({ closeActiveModal, isOpen, handleLogin }) {
+export default function LoginModal({
+  closeActiveModal,
+  isOpen,
+  handleLogin,
+  handleRegisterClick,
+}) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -50,6 +55,18 @@ export default function LoginModal({ closeActiveModal, isOpen, handleLogin }) {
           onChange={handlePasswordChange}
         />
       </label>
+      <div className="madal__buttons">
+        <button type="submit" className="modal__submit">
+          Log in
+        </button>
+        <button
+          type="button"
+          className="modal__btn"
+          onClick={handleRegisterClick}
+        >
+          Or sign up
+        </button>
+      </div>
     </ModalWithForm>
   );
 }
