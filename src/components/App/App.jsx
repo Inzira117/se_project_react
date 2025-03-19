@@ -90,11 +90,19 @@ function App() {
         closeActiveModal();
       }
     };
+    const handleOverlay = (e) => {
+      // that's why you should have a `modal` class name in each modal to be able to universally handle the overlay click
+      if (e.target.classList.contains("modal")) {
+        closeActiveModal();
+      }
+    };
 
     document.addEventListener("keydown", handleEscClose);
+    document.addEventListener("mousedown", handleOverlay);
 
     return () => {
       document.removeEventListener("keydown", handleEscClose);
+      document.removeEventListener("mousedown", handleOverlay);
     };
   }, [activeModal]);
 
@@ -104,8 +112,9 @@ function App() {
   };
 
   const handleDeleteCard = (cardToDelete) => {
+    const token = localStorage.getItem("jwt");
     return api
-      .deleteItem(cardToDelete._id)
+      .deleteItem(cardToDelete._id, token)
       .then(() => {
         setClothingItems((cards) =>
           cards.filter((item) => item._id !== cardToDelete._id)

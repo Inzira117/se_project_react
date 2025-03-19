@@ -1,5 +1,5 @@
 import "./ModalWithForm.css";
-
+import { useEffect } from "react";
 import Close from "../../assets/Close.svg";
 
 function ModalWithForm({

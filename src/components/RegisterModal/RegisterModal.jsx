@@ -45,7 +45,7 @@ export default function RegisterModal({
       isOpen={isOpen}
       onSubmit={handleSubmit}
     >
-      <label htmlFor="Email" className="modal__label">
+      <label className="modal__label">
         Email*{" "}
         <input
           className="modal__input"
@@ -58,7 +58,7 @@ export default function RegisterModal({
         />
         <span className="modal__error" id="place-name-error" />
       </label>
-      <label htmlFor="Password" className="modal__label">
+      <label className="modal__label">
         Password*{" "}
         <input
           className="modal__input"
@@ -73,7 +73,7 @@ export default function RegisterModal({
         />
         <span className="modal__error" id="place-name-error" />
       </label>
-      <label htmlFor="Name" className="modal__label">
+      <label className="modal__label">
         Name{" "}
         <input
           className="modal__input"
@@ -88,7 +88,7 @@ export default function RegisterModal({
         />
         <span className="modal__error" id="place-name-error" />
       </label>
-      <label htmlFor="imageUrl" className="modal__label">
+      <label className="modal__label">
         Image{" "}
         <input
           className="modal__input"

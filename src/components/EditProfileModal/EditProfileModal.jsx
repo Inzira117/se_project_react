@@ -39,7 +39,7 @@ export default function EditProfile({
       isOpen={activeModal === "edit"}
       onSubmit={handleSubmit}
     >
-      <label htmlFor="Name" className="modal__label">
+      <label className="modal__label">
         Name{" "}
         <input
           className="modal__input"
@@ -53,7 +53,7 @@ export default function EditProfile({
         />
         <span className="modal__error" id="place-name-error" />
       </label>
-      <label htmlFor="imageUrl" className="modal__label">
+      <label className="modal__label">
         Avatar{" "}
         <input
           className="modal__input"
@@ -64,6 +64,9 @@ export default function EditProfile({
           value={avatar}
         />
       </label>
+      <button type="submit" className="modal__submit">
+        Save changes
+      </button>
     </ModalWithForm>
   );
 }

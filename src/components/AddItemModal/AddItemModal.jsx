@@ -1,5 +1,5 @@
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export default function AddItemModal({
   closeActiveModal,
@@ -22,14 +22,16 @@ export default function AddItemModal({
     setWeather(e.target.value);
   };
 
+  useEffect(() => {
+    setName("");
+    setImageUrl("");
+    setWeather("");
+  }, [isOpen]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(name, imageUrl, weather);
     onAddItemModalSubmit(name, imageUrl, weather);
-
-    setName("");
-    setImageUrl("");
-    setWeather("");
   };
 
   return (
@@ -40,7 +42,7 @@ export default function AddItemModal({
       isOpen={isOpen}
       onSubmit={handleSubmit}
     >
-      <label htmlFor="Name" className="modal__label">
+      <label className="modal__label">
         Name{" "}
         <input
           className="modal__input"
@@ -54,7 +56,7 @@ export default function AddItemModal({
         />
         <span className="modal__error" id="place-name-error" />
       </label>
-      <label htmlFor="imageUrl" className="modal__label">
+      <label className="modal__label">
         Image{" "}
         <input
           className="modal__input"
@@ -67,7 +69,7 @@ export default function AddItemModal({
       </label>
       <fieldset className="modal__radio-buttons">
         <legend className="modal__legend">Select the weather type:</legend>
-        <label htmlFor="hot" className="modal__input modal__input_type_radio">
+        <label className="modal__input modal__input_type_radio">
           <input
             type="radio"
             className="modal__radio-input"
@@ -80,7 +82,7 @@ export default function AddItemModal({
           />
           Hot
         </label>
-        <label htmlFor="warm" className="modal__input modal__input_type_radio">
+        <label className="modal__input modal__input_type_radio">
           <input
             type="radio"
             className="modal__radio-input"
@@ -93,7 +95,7 @@ export default function AddItemModal({
           />
           Warm
         </label>
-        <label htmlFor="cold" className="modal__input modal__input_type_radio">
+        <label className="modal__input modal__input_type_radio">
           <input
             type="radio"
             className="modal__radio-input"
