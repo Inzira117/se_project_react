@@ -31,6 +31,11 @@ export const weatherOptions = [
   },
 ];
 
+export const baseUrl =
+  process.env.NODE_ENV === "production"
+    ? "https://api.wtwrapp.minecraftnoob.com"
+    : "http://localhost:3001";
+
 export const defaultWeatherOptions = {
   day: { url: new URL("../assets/Day.svg", import.meta.url).href },
   night: { url: new URL("../assets/Night.svg", import.meta.url).href },

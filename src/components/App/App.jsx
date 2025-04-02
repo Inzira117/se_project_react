@@ -17,18 +17,18 @@ import Api from "../../utils/api.js";
 
 import { getWeather, filterWeatherData } from "../../utils/weatherApi.js";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
-import { coordinates, APIkey } from "../../utils/constants";
+import { coordinates, APIkey, baseUrl } from "../../utils/constants";
 import { useEffect, useState } from "react";
 
 const api = new Api({
-  baseUrl: "http://localhost:3001",
+  baseUrl: baseUrl,
   headers: {
     "Content-Type": "application/json",
   },
 });
 
 const auth = new Auth({
-  baseUrl: "http://localhost:3001",
+  baseUrl: baseUrl,
   headers: {
     "Content-Type": "application/json",
   },

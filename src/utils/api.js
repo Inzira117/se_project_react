@@ -14,6 +14,7 @@ class Api {
   getCards() {
     return fetch(this.baseUrl + "/items", {
       method: "GET",
+      headers: this._headers,
     }).then(this._checkRes);
   }
 
