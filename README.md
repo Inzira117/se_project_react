@@ -11,3 +11,5 @@ The idea of the application is pretty simple - we make a call to an API, which t
 - [Deployed URL] (https://inzira117.github.io/se_project_react/)
 
 - [Back-end repo] (https://github.com/Inzira117/se_project_express.git)
+
+- [Domen name] (wtwrapp.minecraftnoob.com; www.wtwrapp.minecraftnoob.com)

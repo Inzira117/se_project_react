@@ -153,6 +153,7 @@ function App() {
           return auth.verifyToken(token.jwt);
         })
         .then((userData) => {
+          console.log("use data", userData);
           setCurrentUser(userData);
           setIsLoggedIn(true);
           closeActiveModal();
